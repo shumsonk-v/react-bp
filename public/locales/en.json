@@ -43,7 +43,7 @@
       "pageTitle": "About",
       "lblMenu": "About",
       "descP1": "This is a web application built with React for personal test and demonstrate my skill in React development after learning it for almost 3 weeks (actually about 12 man days in total). I have been using Angular as my main framework in the last several years but now started to interested in React since I think specialize in only one thing is not enough these days. And to be honest, I hope it will help me get more opportunity when changing a job in the future.",
-      "descP2": "So, with that, I decided to make this web app by using React along with the popular libraries. But since it is only just for demonstrate my skill, so there is only a few features and pages that you can play around with. But you can also take a look at the code of this project in the my Github repository so you can see what is under the hood."
+      "descP2": "So, with that, I decided to make this web app by using React along with the popular libraries. But since it is only just for demonstrate my skill, so there is only a few features and pages that you can play around with. But you can also take a look at the code of this project in the my Github repository so you can see what is under the hood (click on the 'Source' menu on the left hand side)."
     },
     "home": {
       "pageTitle": "Home",

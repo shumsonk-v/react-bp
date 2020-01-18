@@ -6,6 +6,8 @@ import { IAppState } from './../interfaces';
 import { Error, Home, HelpOutline } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
@@ -67,6 +69,15 @@ const menuList: IMenuItem[] = [
     to: '/undefined-route',
     icon: Error,
     color: 'error'
+  },
+  {
+    divider: true
+  },
+  {
+    text: 'Source',
+    to: 'https://github.com/shumsonk-v/react-bp',
+    icon: () => <FontAwesomeIcon icon={faGithub} />,
+    external: true
   }
 ];
 
@@ -88,8 +99,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.main
   },
   menuIcon: {
-    minWidth: '38px'
-  },
+    minWidth: '38px',
+    '& .svg-inline--fa': {
+      fontSize: '1.4em',
+      width: '24px',
+      height: '24px'
+    }
+  }
 }));
 
 // --- Interfaces ---
@@ -102,6 +118,7 @@ interface IMenuItem {
   divider?: boolean;  // Set to true to render a divider line
   color?: 'action' | 'disabled' | 'error' | 'inherit' | 'primary' | 'secondary';
   tooltip?: string;
+  external?: boolean;
 }
 
 interface IMainNavContentProps extends RouteComponentProps {
@@ -158,7 +175,7 @@ const ListMenuItem = (props: IListMenuItem) => {
   const { menu, selected } = props;
 
   return (
-    menu.to ?
+    menu.to && !menu.external ?
     <ListItemLink to={menu.to} selected={selected} {...props} /> :
     <ListItem button {...props}>
       <ListItemLinkContent menu={menu} />
@@ -170,6 +187,10 @@ const MainNavContent = (props: IMainNavContentProps) => {
   const { onCloseNavTriggered, isAuthenticated, location } = props;
 
   const menuClicked = (mnu: any) => {
+    if (mnu.external) {
+      window.open(mnu.to, '_blank');
+      return;
+    }
     if (!mnu.persistent && typeof onCloseNavTriggered === 'function') {
       onCloseNavTriggered(true);
     }

@@ -1,0 +1,5 @@
+{
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  "javascript.referencesCodeLens.enabled": true,
+  "editor.tabSize": 2
+}

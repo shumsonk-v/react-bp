@@ -1,0 +1,130 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "login": "Login",
+    "untitled": "Untitled"
+  },
+  "error": {
+    "working": "Working on it...",
+    "login": "An error occurred while logging in",
+    "auth/wrong-password": "Invalid username or password"
+  },
+  "component": {
+    "login": {
+      "ttlLogin": "Login",
+      "ttlForgotPass": "Forgot Password",
+      "lnkForgotPass": "Forgot password?",
+      "lnkBackToLogin": "Back to login",
+      "lblUsername": "Username",
+      "lblPassword": "Password",
+      "btnLogin": "Login",
+      "descForgotPass": "Enter your registered e-mail address. If your e-mail is valid in our system, we will send the instruction how to recover your account to you.",
+      "lblEmail": "E-mail Address",
+      "btnResetPass": "Send",
+      "providers": {
+        "FBS_GOOGLE": "Login with Google account"
+      }
+    },
+    "logout": {
+      "ttlLogout": "Logout Confirmation",
+      "descLogout": "Are you sure you want to logout? Make sure you have saved all of your work before continue",
+      "btnLogout": "Logout"
+    },
+    "userMenu": {
+      "lblWelcome": "Welcome,",
+      "lnkProfile": "Profile"
+    },
+    "notFound": {
+      "pageTitle": "Page Not Found",
+      "title": "Page Not Found",
+      "description": "Sorry, we tried to find your requested page but no luck. Maybe you can contact our administrator and inform this issue if this page was here before."
+    },
+    "about": {
+      "pageTitle": "About",
+      "lblMenu": "About",
+      "descP1": "This is a web application built with React for personal test and demonstrate my skill in React development after learning it for almost 3 weeks (actually about 12 man days in total). I have been using Angular as my main framework in the last several years but now started to interested in React since I think specialize in only one thing is not enough these days. And to be honest, I hope it will help me get more opportunity when changing a job in the future.",
+      "descP2": "So, with that, I decided to make this web app by using React along with the popular libraries. But since it is only just for demonstrate my skill, so there is only a few features and pages that you can play around with. But you can also take a look at the code of this project in the my Github repository so you can see what is under the hood."
+    },
+    "home": {
+      "pageTitle": "Home",
+      "lblMenu": "Home",
+      "title1": "Welcome!",
+      "desc1": "This is a React web application that was developed to test what I've learned so far since started React self-learning. Let's skip the introduction (I'm not good at talking) and go straight to what do we have here.",
+      "title2": "Technology & Stack",
+      "feStackItems": {
+        "react": {
+          "name": "React",
+          "desc": "obviously with Typescript"
+        },
+        "react_router": {
+          "name": "React Router",
+          "desc": "route management for React."
+        },
+        "redux": {
+          "name": "Redux",
+          "desc": "for a state management. To store any state value to keep them consistence across the entire app."
+        },
+        "redux_saga": {
+          "name": "Redux Saga",
+          "desc": "a Redux middleware to make it easier to manage side effect from dispatching an async operations."
+        },
+        "react_helmet": {
+          "name": "React Helmet",
+          "desc": "To manage values in <head> and html attributes (such as changing document title)."
+        },
+        "react_i18next": {
+          "name": "React + i18next",
+          "desc": "for the multi-language support. The multi-language is a must-have feature whenever I start building a SPA even if in Angular or Vue.js."
+        },
+        "material_ui": {
+          "name": "Material UI",
+          "desc": "a main UI components library that I personally love it. There many similar UI libraries but this one is my favorite due to its smoothness and very easy to use and customize."
+        },
+        "font_awesome": {
+          "name": "Font Awesome",
+          "desc": "since Material Icon doesn't have a social media and brand icons, I had to find another option, right?"
+        }
+      },
+      "title3": "Hosting",
+      "desc3": "I use Firebase Hosting feature to host this simple app. It's pretty easy and convenient to host the application like this.",
+      "title4": "Authentication",
+      "desc4": "I use Firebase authentication feature to enable an email-password authentication (I actually enabled the Google authentication as well but I'll disable it in my app for now). Also, I've created and deployed a simple Node.js script to the Firebase Functions to create a custom api to set custom claims information of the loggedin user. If you have a credentials (normally will be provided along with the job application submission), you can try logging in and play around for a bit. Otherwise, you can still access for an authenticated part of the app.",
+      "title5": "Some More Features",
+      "desc5": "The authentication mostly managed by Firebase Javascript SDK with the local persistence mode. But I also added a feature that can remember the selected language by saving it in the browser local storage. So next time you visit this page again, the app should display with your last selected language."
+    },
+    "admin": {
+      "pageTitle": "Administrator",
+      "lblMenu": "Administrator"
+    },
+    "mainNav": {
+      "menu": {
+        "jobs": "Jobs",
+        "companies": "Companies",
+        "candidates": "Candidates",
+        "settings": "Settings",
+        "admin": "Administrator",
+        "about": "About"
+      }
+    },
+    "construction": {
+      "pageTitle": "Under Construction",
+      "title": "Under Construction",
+      "description": "Sorry, I'm working on it as fast as I can on this page. Please come back again later."
+    },
+    "jobs": {
+      "pageTitle": "Jobs"
+    },
+    "companies": {
+      "pageTitle": "Companies"
+    },
+    "candidates": {
+      "pageTitle": "Candidates"
+    },
+    "settings": {
+      "pageTitle": "Settings"
+    }
+  },
+  "test": {
+    "undefinedRoute": "Try Undefined Route"
+  }
+}

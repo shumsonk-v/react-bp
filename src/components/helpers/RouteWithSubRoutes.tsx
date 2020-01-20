@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 function RouteWithSubRoutes(route: any) {
   const classes = useMainStyles();
   const { t } = useTranslation();
+  const { auth, isAuthenticated } = route;
 
   const RenderRoute = (props: any) => {
     const { route } = props;
@@ -24,6 +25,21 @@ function RouteWithSubRoutes(route: any) {
         <route.component {...props} routes={route.routes} />
       </Container>
     )
+  };
+
+  const isRoleAllowed = (rt: any): boolean => {
+    if (!auth && !isAuthenticated) {
+      return true;
+    }
+
+    const { user } = auth;
+
+    if (user && rt.data?.only) {
+      const routeRoles = typeof rt.data.only === 'string' ? [rt.data.only] : rt.data.only;
+      return routeRoles.includes(user.role);
+    }
+
+    return true;
   };
 
   return (
@@ -40,11 +56,11 @@ function RouteWithSubRoutes(route: any) {
 
         if (route.auth) {
           // pass the sub-routes down to keep nesting
-          return route.isAuthenticated ?
+          return isAuthenticated && isRoleAllowed(route) ?
             <RenderRoute route={route} {...props} /> :
             <Redirect
               to={{
-                pathname: "/login",
+                pathname: "/",
                 state: { from: props.location }
               }}
             />;
@@ -58,6 +74,7 @@ function RouteWithSubRoutes(route: any) {
 
 const state2props = (state: IAppState) => ({
   isAuthenticated: state.isAuthenticated,
+  auth: state.auth
 });
 
 const dispatch2props = (dispatch: any) => ({

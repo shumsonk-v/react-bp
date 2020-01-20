@@ -6,6 +6,7 @@ import Jobs from './components/Jobs';
 import Companies from './components/Companies';
 import Candidates from './components/Candidates';
 import Settings from './components/Settings';
+import Profile from './components/Profile';
 
 const routes = [
   {
@@ -74,6 +75,14 @@ const routes = [
     data: {
       docTitle: 'component.settings.pageTitle',
       isCenteredContent: true
+    }
+  },
+  {
+    path: '/profile',
+    component: Profile,
+    auth: true,
+    data: {
+      docTitle: 'component.profile.pageTitle'
     }
   }
 ];

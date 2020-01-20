@@ -12,11 +12,11 @@ import ScrollToTop from './components/helpers/ScrollToTop';
 import MainAppBar from './components/MainAppBar';
 import MainNav from './components/MainNav';
 import NotFound from './components/NotFound';
-import { FIREBASE_AUTH_METHODS } from './constants';
+import { FIREBASE_AUTH_METHODS, USER_ROLES } from './constants';
 import { auth, hasFirebaseAuth } from './firebase-modules';
 import { IAppState, IAuthState } from './interfaces';
 import routes from './routes';
-import { APP_UPDATE_AUTH_REQUESTED } from './sagas/AppSagas';
+import { APP_UPDATE_AUTH_REQUESTED, APP_GET_PROFILE_REQUESTED } from './sagas/AppSagas';
 import { APP_SET_NOTIFICATION, APP_UPDATE_INIT } from './stores/AppActions';
 import { customTheme, GlobalStyle, useMainStyles } from './styles';
 import { useTranslation } from 'react-i18next';
@@ -24,12 +24,13 @@ import { useTranslation } from 'react-i18next';
 interface IAppCompProps extends IAppState {
   updateAuthStatus: (u: any, token?: firebase.auth.IdTokenResult, provider?: string) => void;
   updateInitAuthCheck: () => void;
+  getProfile: () => void;
 }
 
 function App(props: IAppCompProps) {
   const classes = useMainStyles();
   const { t, i18n } = useTranslation();
-  const { updateAuthStatus, updateInitAuthCheck, initAuthCheck, isAppBusy, notification } = props;
+  const { updateAuthStatus, updateInitAuthCheck, initAuthCheck, isAppBusy, notification, getProfile } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [appInit, setAppInit] = useState(false);
   const [appSnackbarOpen, setAppSnackbarOpen] = useState(false);
@@ -39,13 +40,16 @@ function App(props: IAppCompProps) {
       if (hasFirebaseAuth) {
         auth.onAuthStateChanged((u) => {
           setAppInit(true);
+
           if (!u) {
             updateAuthStatus(null);
             updateInitAuthCheck();
+            getProfile();
           } else {
             u.getIdTokenResult().then((tokenRes) => {
               updateAuthStatus(u, tokenRes, FIREBASE_AUTH_METHODS.GOOGLE);
               updateInitAuthCheck();
+              getProfile();
             });
           }
         });
@@ -57,7 +61,7 @@ function App(props: IAppCompProps) {
     if (notification) {
       setAppSnackbarOpen(true);
     }
-  }, [appInit, updateAuthStatus, updateInitAuthCheck, notification]);
+  }, [appInit, notification]);
 
   const snackbarCloseHandler = (cb?: Function) => {
     if (typeof cb === 'function') {
@@ -140,7 +144,7 @@ const dispatch2props = (dispatch: any) => ({
 
     const { claims, token } = tokenRes;
     if (u && tokenRes && method) {
-      const role = claims.admin ? 'ADMIN' : 'USER';
+      const role = claims.admin ? USER_ROLES.ADMIN : USER_ROLES.USER;
 
       authInfo = {
         token,
@@ -170,6 +174,11 @@ const dispatch2props = (dispatch: any) => ({
   closeNotification: () => {
     dispatch({
       type: APP_SET_NOTIFICATION,
+    });
+  },
+  getProfile: () => {
+    dispatch({
+      type: APP_GET_PROFILE_REQUESTED,
     });
   }
 });

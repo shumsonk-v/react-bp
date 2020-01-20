@@ -2,7 +2,38 @@
   "common": {
     "cancel": "Cancel",
     "login": "Login",
-    "untitled": "Untitled"
+    "untitled": "Untitled",
+    "present": "Present",
+    "month": {
+      "byNumber": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      },
+      "byNumberShort": {
+        "1": "Jan",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "May",
+        "6": "Jun",
+        "7": "Jul",
+        "8": "Aug",
+        "9": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+      }
+    }
   },
   "error": {
     "working": "Working on it...",
@@ -103,7 +134,8 @@
         "candidates": "Candidates",
         "settings": "Settings",
         "admin": "Administrator",
-        "about": "About"
+        "about": "About",
+        "profile": "Profile"
       }
     },
     "construction": {
@@ -122,6 +154,19 @@
     },
     "settings": {
       "pageTitle": "Settings"
+    },
+    "profile": {
+      "pageTitle": "Profile",
+      "durationYearText": "{{year}} year(s)",
+      "durationMonthText": "{{month}} month(s)",
+      "loading": "Loading...",
+      "unauthorized": "You need to login to see {{section}} section",
+      "summaryTitle": "About Me",
+      "experienceTitle": "Work Experience",
+      "skillTitle": "Skills",
+      "educationTitle": "Education",
+      "tools": "Tools & Libraries",
+      "hiddenName": "Sorry, my name is hidden for some reason, please login to reveal it"
     }
   },
   "test": {

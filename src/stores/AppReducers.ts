@@ -7,8 +7,10 @@ import {
   APP_UPDATE_AUTH, APP_UPDATE_INIT, APP_SET_BUSY, APP_SET_NOTIFICATION,
   APP_SET_LANGUAGE,
   APP_SET_DOC_TITLE,
+  APP_SET_PROFILE,
 } from './AppActions';
 import { LANGUAGES } from 'src/constants';
+import AuthSvc from 'src/services/Authentication';
 
 const lang = window.localStorage.getItem('_rbp_lng_') || LANGUAGES[0].lang || 'en';
 
@@ -20,17 +22,22 @@ const initialState: IAppState = {
   isAppBusy: false,
   auth: null,
   currentLanguage: lang,
+  myProfile: null,
 };
 
 function appReducers(state: IAppState = initialState, action: IReduxAction) {
   switch (action.type) {
     case APP_SET_PAGE_TITLE:
       return Object.assign({}, state, {
-        pageTitle: action.payload.pageTitle
+        pageTitle: action.payload.pageTitle, 
       });
     case APP_SET_DOC_TITLE:
       return Object.assign({}, state, {
         docTitle: action.payload.docTitle
+      });
+    case APP_SET_PROFILE:
+      return Object.assign({}, state, {
+        myProfile: action.payload.profile || null,
       });
     case APP_LOGIN_COMPLETED:
     case APP_UPDATE_AUTH:
@@ -53,7 +60,12 @@ function appReducers(state: IAppState = initialState, action: IReduxAction) {
           method,
           user: authUser,
         };
+
+        AuthSvc.setAuthToken(token);
+      } else {
+        AuthSvc.setAuthToken(null);
       }
+
 
       return Object.assign({}, state, {
         auth,

@@ -38,4 +38,5 @@ export interface IAppState {
   auth?: IAuthState | null;
   notification?: INotification | null;
   currentLanguage?: string;
+  myProfile?: any;
 }

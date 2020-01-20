@@ -1,7 +1,7 @@
 import { IAuthState, IAuthUser } from './../interfaces';
 import { auth, authPersistenceMode } from 'src/firebase-modules';
 import firebase from 'firebase/app';
-import { FIREBASE_AUTH_METHODS } from '../constants';
+import { FIREBASE_AUTH_METHODS, USER_ROLES } from '../constants';
 
 export interface IUserCredentials {
   username: string;
@@ -9,41 +9,17 @@ export interface IUserCredentials {
 }
 
 const authStorageName = '_rbptk_';
+const funcEndpoint = process.env.REACT_APP_FIREBASE_FUNC_ENDPOINT;
+
+// const setAuthToken = (token: any) => {
+//   if (token) {
+//     localStorage.setItem(authStorageName, token);
+//   } else {
+//     localStorage.removeItem(authStorageName);
+//   }
+// }
 
 const AuthenticationService = {
-  login: async (cred: IUserCredentials): Promise<IAuthState | null> => {
-    const loginReq = new Promise<IAuthState | null>((resolve, reject) => {
-      setTimeout(() => {
-        const userInfo: IAuthUser | null = cred.username === 'admin' && cred.password === 'password' ?
-          { id: 1, username: 'admin', role: 'ADMIN' } : null;
-
-        if (!userInfo) {
-          window.localStorage.removeItem(authStorageName);
-          resolve(null);
-          return;
-        }
-
-        const mockToken = 'q1w2e3r4r5';
-        window.localStorage.setItem(authStorageName, mockToken);  
-        resolve({
-          token: mockToken,
-          method: 'normal',
-          user: userInfo
-        });
-      }, 1500);
-    });
-
-    return await loginReq;
-  },
-  logout: async (): Promise<boolean> => {
-    const logoutReq = new Promise<boolean>((resolve, reject) => {
-      setTimeout(() => {
-        window.localStorage.removeItem(authStorageName);
-        resolve(true);
-      }, 1000);
-    });
-    return await logoutReq;
-  },
   loginWithProvider: async (payload: any): Promise<IAuthState | null> => {
     let signInReq;
     const { method, provider, cred } = payload;
@@ -70,9 +46,11 @@ const AuthenticationService = {
           const { user } = result;
 
           let role = null;
-          const claimsEndpoint = process.env.REACT_APP_FIREBASE_CLAIMS_ENDPOINT;
-          if (method === FIREBASE_AUTH_METHODS.BASIC && claimsEndpoint) {
-            const claimsResp = await fetch(`${claimsEndpoint}/claims`, {
+          const roleContained = tokenRes && tokenRes.claims ?
+            tokenRes.claims.hasOwnProperty('admin') || tokenRes.claims.hasOwnProperty('user') :
+            false;
+          if (!roleContained && method === FIREBASE_AUTH_METHODS.BASIC && funcEndpoint) {
+            const claimsResp = await fetch(`${funcEndpoint}/claims`, {
               method: 'GET',
               mode: 'cors',
               cache: 'no-cache',
@@ -84,7 +62,10 @@ const AuthenticationService = {
               referrerPolicy: 'no-referrer',
             });
             const claimsObj = await claimsResp.json();
-            role = claimsObj.admin ? 'ADMIN' : 'USER';
+            role = claimsObj.admin ? USER_ROLES.ADMIN : USER_ROLES.USER;
+          }
+          if (roleContained) {
+            role = tokenRes.claims.admin ? USER_ROLES.ADMIN : USER_ROLES.USER;
           }
 
           userInfo = {
@@ -113,6 +94,7 @@ const AuthenticationService = {
   logoutFromProvider: async (): Promise<boolean> => {
     const logoutReq = new Promise<boolean>((resolve, reject) => {
       auth.signOut().then(() => {
+        AuthenticationService.setAuthToken(null);
         resolve(true);
       }).catch(() => {
         resolve(false);
@@ -128,6 +110,33 @@ const AuthenticationService = {
     });
     return await checkAuthReq;
   },
+  getPersonalProfile: async (): Promise<any> => {
+    const token = localStorage.getItem(authStorageName);
+    let reqHeaders = {
+      'Content-Type': 'application/json'
+    };
+    if (token) {
+      reqHeaders['Authorization'] = `Bearer ${token}`;
+    }
+
+    const profileResp = await fetch(`${funcEndpoint}/author-profile`, {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: reqHeaders,
+      referrerPolicy: 'no-referrer',
+    });
+    const profile = await profileResp.json();
+    return profile || null;
+  },
+  setAuthToken: (token: any) => {
+    if (token) {
+      localStorage.setItem(authStorageName, token);
+    } else {
+      localStorage.removeItem(authStorageName);
+    }
+  }
 };
 
 export default AuthenticationService;

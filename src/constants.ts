@@ -1,4 +1,10 @@
 import { ILanguage } from './interfaces';
+
+export enum USER_ROLES {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
+
 export const DEFAULT_LANGUAGES: ILanguage = { lang: 'en', text: 'English' };
 export const LANGUAGES: ILanguage[] = [
   { lang: 'en', text: 'English' },

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link as RouterLink, withRouter, RouteComponentProps } from 'react-router-dom';
 import { IAppState } from './../interfaces';
-import { Error, Home, HelpOutline } from '@material-ui/icons';
+import { Error, Home, HelpOutline, Person } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -60,6 +60,11 @@ const menuList: IMenuItem[] = [
     text: 'component.mainNav.menu.about',
     to: '/about',
     icon: HelpOutline,
+  },
+  {
+    text: 'component.mainNav.menu.profile',
+    to: '/profile',
+    icon: Person,
   },
   {
     divider: true // Set to true to render a divider line

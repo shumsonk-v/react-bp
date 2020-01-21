@@ -54,7 +54,7 @@ function RouteWithSubRoutes(route: any) {
           route.setDocTitle(t(route.data?.docTitle || 'common.untitled'));
         }
 
-        if (route.auth) {
+        if (route.data.auth) {
           // pass the sub-routes down to keep nesting
           return isAuthenticated && isRoleAllowed(route) ?
             <RenderRoute route={route} {...props} /> :

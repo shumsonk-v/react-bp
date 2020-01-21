@@ -27,8 +27,8 @@ const routes = [
   {
     path: '/admin',
     component: Admin,
-    auth: true,
     data: {
+      auth: true,
       docTitle: 'component.admin.pageTitle',
       isCenteredContent: true
     }
@@ -44,8 +44,8 @@ const routes = [
   {
     path: '/jobs',
     component: Jobs,
-    auth: true,
     data: {
+      auth: true,
       docTitle: 'component.jobs.pageTitle',
       isCenteredContent: true
     }
@@ -53,8 +53,8 @@ const routes = [
   {
     path: '/companies',
     component: Companies,
-    auth: true,
     data: {
+      auth: true,
       docTitle: 'component.companies.pageTitle',
       isCenteredContent: true
     }
@@ -62,8 +62,8 @@ const routes = [
   {
     path: '/candidates',
     component: Candidates,
-    auth: true,
     data: {
+      auth: true,
       docTitle: 'component.candidates.pageTitle',
       isCenteredContent: true
     }
@@ -71,8 +71,8 @@ const routes = [
   {
     path: '/settings',
     component: Settings,
-    auth: true,
     data: {
+      auth: true,
       docTitle: 'component.settings.pageTitle',
       isCenteredContent: true
     }
@@ -80,8 +80,8 @@ const routes = [
   {
     path: '/profile',
     component: Profile,
-    auth: true,
     data: {
+      auth: true,
       docTitle: 'component.profile.pageTitle'
     }
   }

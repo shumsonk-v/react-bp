@@ -45,6 +45,7 @@ const useMainStyles = makeStyles(theme => ({
 }));
 
 const centeredContentImageScales = {
+  xs: '70%',
   sm: '180px',
   md: '220px',
   lg: '280px'
@@ -69,10 +70,11 @@ const useCenteredContentStyles = makeStyles(theme => ({
     flexFlow: 'column nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    maxWidth: '50%',
+    flex: `1 0 ${centeredContentImageScales.xs}`,
+    maxWidth: centeredContentImageScales.xs,
     paddingLeft: theme.spacing(5),
     paddingRight: theme.spacing(5),
-    flex: '1 0 50%',
+    paddingBottom: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
       flex: `0 0 ${centeredContentImageScales.sm}`,
       maxWidth: centeredContentImageScales.sm

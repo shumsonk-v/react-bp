@@ -6,7 +6,7 @@ import Jobs from './components/Jobs';
 import Companies from './components/Companies';
 import Candidates from './components/Candidates';
 import Settings from './components/Settings';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
 
 const routes = [
   {
@@ -81,7 +81,6 @@ const routes = [
     path: '/profile',
     component: Profile,
     data: {
-      auth: true,
       docTitle: 'component.profile.pageTitle'
     }
   }
